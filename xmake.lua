@@ -1,6 +1,8 @@
+set_languages("c++17")
+
 target("utils")
     set_kind("static")
-    add_files("src/utils/*.cpp")
+    add_files("src/util/*.cpp")
 
 target("day1")
     set_kind("binary")
