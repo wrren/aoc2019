@@ -2,19 +2,13 @@
 #include <iostream>
 #include <cmath>
 
-int fuel_required(int mass, bool include_fuel_mass = false) {
+int fuel_required(int mass, bool include_fuel_mass = false, int total = 0) {
     if(mass <= 6) {
-        return 0;
+        return total;
     }
     if(include_fuel_mass) {
-        int fuel    = floor(mass / 3) - 2;
-        int total   = fuel;
-        int added   = fuel_required(fuel);
-        while(added != 0) {
-            total += added;
-            added = fuel_required(added);
-        }
-        return total;
+        int fuel = floor(mass / 3) - 2;
+        return fuel_required(fuel, true, total + fuel);
     }
     return floor(mass / 3) - 2;
 }
