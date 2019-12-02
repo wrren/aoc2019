@@ -6,6 +6,29 @@
 #define OPCODE_MULTIPLY     2
 #define OPCODE_END_PROGRAM  99
 
+bool run_program(std::vector<int>& inputs) {
+  int position = 0;
+
+  while(position < inputs.size()) {
+    switch(inputs[position]) {
+      case OPCODE_END_PROGRAM:
+        return true;
+      case OPCODE_ADD:
+        inputs[inputs[position+3]] = inputs[inputs[position+1]] + inputs[inputs[position+2]];
+      break;
+      case OPCODE_MULTIPLY:
+        inputs[inputs[position+3]] = inputs[inputs[position+1]] * inputs[inputs[position+2]];
+      break;
+      default:
+        std::cerr << "Unrecognized OpCode: " << inputs[position] << std::endl;
+        return false;
+    }
+    position += 4;
+  }
+
+  return true;
+}
+
 int main(int argc, char** argv) {
   aoc::input_reader reader;
 
@@ -20,32 +43,31 @@ int main(int argc, char** argv) {
       return 1;
   }
 
-  std::vector<int> inputs;
-  reader.read(inputs);
-  int opcode, position = 0;
+  std::vector<int> original, inputs;
+  reader.read(original, ',');
 
+  inputs = original;
   inputs[1] = 12;
   inputs[2] = 2;
 
-  while(position < inputs.size()) {
-    opcode = inputs[position];
-    if(opcode == OPCODE_END_PROGRAM) {
-      break;
-    }
-
-    switch(opcode) {
-      case OPCODE_ADD:
-        inputs[inputs[position+1]] = inputs[position+2] + inputs[position+3];
-      break;
-      case OPCODE_MULTIPLY:
-        inputs[inputs[position+1]] = inputs[position+2] * inputs[position+3];
-      break;
-    }
-
-    position += 4;
+  if(run_program(inputs)) { 
+    std::cout << "Position 0: " << inputs[0] << std::endl;
   }
 
-  std::cout << "Position 0: " << inputs[0] << std::endl;
+
+  for(int i = 0; i < 100; i++) {
+    for(int j = 0; j < 100; j++) {
+      inputs = original;
+      inputs[1] = i;
+      inputs[2] = j;
+      run_program(inputs);
+      if(inputs[0] == 19690720) {
+        std::cout << "Noun: " << i << ", Verb: " << j << std::endl;
+        std::cout << "Result: " << (100 * i) + j << std::endl;
+        return 0;
+      }
+    }
+  }
 
   return 0;
 }

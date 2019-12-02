@@ -62,7 +62,12 @@ namespace aoc {
         /**
          * Read a list of integers
          */
-        bool read(std::vector<int>& numbers);
+        bool read(std::vector<int>& numbers, const char separator = '\n');
+
+        /**
+         * Reset the reader's position to the beginning of the input file
+         */
+        void reset();
 
     private:
 

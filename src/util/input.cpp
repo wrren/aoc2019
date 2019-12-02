@@ -1,6 +1,7 @@
 #include "input.h"
 #include <filesystem>
 #include <iostream>
+#include <string>
 
 namespace aoc {
 
@@ -45,11 +46,24 @@ namespace aoc {
         return false;
     }
 
-    bool input_reader::read(std::vector<int>& numbers) {
+    bool input_reader::read(std::vector<int>& numbers, const char separator) {
         int number;
-        while(m_in >> number) {
-            numbers.push_back(number);
+
+        if(separator == '\n') {
+            while(m_in >> number) {
+                numbers.push_back(number);
+            }
+        } else {
+            std::string value;
+            while(std::getline(m_in, value, separator)) {
+                number = atoi(value.c_str());
+                numbers.push_back(number);
+            }
         }
         return true;
+    }
+
+    void input_reader::reset() {
+        m_in.open(m_path.c_str());
     }
 }
