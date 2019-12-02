@@ -8,3 +8,8 @@ target("day1")
     set_kind("binary")
     add_files("src/day1/*.cpp")
     add_deps("utils")
+
+target("day2")
+    set_kind("binary")
+    add_files("src/day2/*.cpp")
+    add_deps("utils")

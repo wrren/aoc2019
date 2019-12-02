@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string>
+#include <vector>
 
 namespace aoc {
     class input_reader {
@@ -57,6 +58,11 @@ namespace aoc {
          * Read an integer value from the input reader   
          */
         bool read(int& val);
+
+        /**
+         * Read a list of integers
+         */
+        bool read(std::vector<int>& numbers);
 
     private:
 

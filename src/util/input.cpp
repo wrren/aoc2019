@@ -44,4 +44,12 @@ namespace aoc {
         }
         return false;
     }
+
+    bool input_reader::read(std::vector<int>& numbers) {
+        int number;
+        while(m_in >> number) {
+            numbers.push_back(number);
+        }
+        return true;
+    }
 }
