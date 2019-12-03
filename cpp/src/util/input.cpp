@@ -25,8 +25,8 @@ namespace aoc {
 
     bool input_reader::open(const std::string& cwd, const std::string& filename) {
         std::filesystem::path path(cwd);
-        path = path.parent_path() / ".." / ".." / ".." / ".." / "inputs" / filename;
-        m_path = path;
+        path = path.parent_path() / ".." / ".." / ".." / ".." / ".." / "inputs" / filename;
+        m_path = path.string();
         m_in.open(path.c_str());
         return m_in.is_open();
     }
@@ -61,6 +61,10 @@ namespace aoc {
             }
         }
         return true;
+    }
+
+    bool input_reader::read_line(std::string& out) {
+        return !!(m_in >> out);
     }
 
     void input_reader::reset() {

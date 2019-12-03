@@ -65,6 +65,11 @@ namespace aoc {
         bool read(std::vector<int>& numbers, const char separator = '\n');
 
         /**
+         * Read a line of text from the input
+         */
+        bool read_line(std::string& out);
+
+        /**
          * Reset the reader's position to the beginning of the input file
          */
         void reset();
