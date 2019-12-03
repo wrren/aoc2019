@@ -32,8 +32,11 @@
 *.app
 
 # XMake
-/build
-/.xmake
+/cpp/build
+/cpp/.xmake
 
 # VSCode
 /.vscode
+
+# Elixir
+/ex/_build/
