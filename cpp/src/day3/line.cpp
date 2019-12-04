@@ -1,5 +1,13 @@
 #include "line.h"
 
+bool between(int a, int b, int c) {
+    if(b < c) {
+        return a >= b && a <= c;
+    } else {
+        return a >= c && a <= b;
+    }
+}
+
 namespace aoc {
     line::line(point p1, point p2) :
     m_p1(p1),
@@ -11,10 +19,12 @@ namespace aoc {
             if(other.m_p1.x == other.m_p2.x) {
                 return std::nullopt;
             }
-            if(other.m_p1.x <= m_p1.x && other.m_p2.x >= m_p1.x) {
-                return result{point{other.m_p2.x - m_p1.x, other.m_p1.y}};
-            } else if(other.m_p1.x >= m_p1.x && other.m_p2.x <= m_p1.x) {
-                return result{point{other.m_p1.x - m_p1.x, other.m_p1.y}};
+            if(between(m_p1.x, other.m_p1.x, other.m_p2.x) && between(other.m_p1.y, m_p1.y, m_p2.y)) {
+                if(other.m_p2.x >= m_p1.x) {
+                    return result{point{other.m_p2.x - m_p1.x, other.m_p1.y}};
+                } else {
+                    return result{point{other.m_p1.x - m_p1.x, other.m_p1.y}};
+                }
             }
         } else {
             if(other.m_p1.y == other.m_p2.y) {

@@ -5,11 +5,12 @@
 #include <string>
 #include <climits>
 
+
 int main(int argc, char** argv) {
     aoc::input_reader reader;
 
     if(argc == 1) {
-        reader.open(argv[0], "day3-1.txt");
+        reader.open(argv[0], "day3-example.txt");
     } else {
         reader.open(argv[1]);
     }
@@ -18,7 +19,7 @@ int main(int argc, char** argv) {
         std::cerr << "The input file could not be read (" << reader.path() << ")" << std::endl;
         return 1;
     }
-    
+
     std::vector<aoc::wire> wires;
     std::string input;
 
@@ -27,21 +28,7 @@ int main(int argc, char** argv) {
         wires.push_back(wire);
     }
 
-    auto intersections  = wires[0].intersections(wires[1]);
-    auto distance       = INT_MAX;
-    auto origin         = aoc::point{0, 0};
-
-    std::cout << "Found " << intersections.size() << " Intersection: " << std::endl;
-
-    for(auto intersection: intersections) {
-        auto new_distance = intersection.manhattan_distance(origin);
-
-        if(new_distance < distance) {
-            distance = new_distance;
-        }
-    }
-
-    std::cout << "Closest Intersection: " << distance << std::endl;
+    std::cout << "Closest Intersection: " << wires[0].closest_intersection(wires[1], aoc::point{0, 0}) << std::endl;
 
     return 0;
 }

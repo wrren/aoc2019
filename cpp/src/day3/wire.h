@@ -12,6 +12,8 @@ namespace aoc {
 
         std::vector<point> intersections(const wire& other) const;
 
+        int closest_intersection(const wire& other, point origin) const;
+
     private:
 
         std::vector<line> m_lines;
